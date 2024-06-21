@@ -59,6 +59,10 @@ public class SocketServerHandler implements Runnable {
             }
             if (dto.getType() == ActionTypeEnum.RM) {
                 this.store.rm(dto.getKey());
+                LoggerUtil.debug(LOGGER, "[SocketServerHandler][run]: {}", "remove action resp" + dto.toString());
+                RespDTO resp = new RespDTO(RespStatusTypeEnum.SUCCESS, null);
+                oos.writeObject(resp);
+                oos.flush();
             }
 
         } catch (IOException | ClassNotFoundException e) {
